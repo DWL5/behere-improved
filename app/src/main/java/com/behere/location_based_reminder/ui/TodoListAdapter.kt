@@ -47,6 +47,10 @@ class TodoListAdapter(private val context: Context, private val todoDataList: Ar
         return todoDataList.size
     }
 
+    fun getItem(idx : Int) : Todo {
+        return todoDataList[idx]
+    }
+
     fun submitData(data : List<Todo>?) {
         if (data.isNullOrEmpty()) return
         todoDataList.clear()
