@@ -13,7 +13,7 @@ import com.behere.location_based_reminder.R
 import com.behere.location_based_reminder.model.db.Todo
 import kotlinx.android.synthetic.main.adapter_todo_list.view.*
 
-class TodoListAdapter(private val context: Context, private val todoDataList: List<Todo>) :
+class TodoListAdapter(private val context: Context, private val todoDataList: ArrayList<Todo>) :
     RecyclerView.Adapter<TodoListAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -45,6 +45,12 @@ class TodoListAdapter(private val context: Context, private val todoDataList: Li
 
     override fun getItemCount(): Int {
         return todoDataList.size
+    }
+
+    fun submitData(data : List<Todo>?) {
+        if (data.isNullOrEmpty()) return
+        todoDataList.clear()
+        todoDataList.addAll(data)
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

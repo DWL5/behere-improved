@@ -3,6 +3,7 @@ package com.behere.location_based_reminder.ui
 import android.content.pm.ActivityInfo
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.behere.location_based_reminder.R
@@ -28,11 +29,14 @@ class MainActivity : AppCompatActivity() {
     private fun initializeViews() {
         val todoDataList = todoViewModel.todoLiveData
         val todoList = todo_list
+        val adapter = TodoListAdapter(this, ArrayList())
+        adapter.submitData(todoDataList.value)
+        todoList.adapter = adapter
         todoList.layoutManager = LinearLayoutManager(this)
-        todoDataList.value?.let {
-            todoList.adapter = TodoListAdapter(this, it)
-        }
-
+        todoDataList.observe(this, Observer {
+            adapter.submitData(it)
+        })
+        
         add_btn.setOnClickListener {
             val addTodoFragment = AddTodoFragment()
             supportFragmentManager
