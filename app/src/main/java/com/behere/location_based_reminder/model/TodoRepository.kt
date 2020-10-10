@@ -23,7 +23,12 @@ class TodoRepository  private constructor(
     /**
      * Returns specific location in database.
      */
-    fun getOnTodo(on: Boolean): LiveData<Todo> = todoDao.getOnTodo(on)
+    fun getOnTodo(on: Boolean): LiveData<List<Todo>> = todoDao.getOnTodo(on)
+
+
+    fun getPlace(): List<String> = todoDao.getPlaces()
+
+    fun getPlace(on:Boolean): List<String> = todoDao.getOnPlace(on)
 
     // Not being used now but could in future versions.
     /**
@@ -58,6 +63,8 @@ class TodoRepository  private constructor(
             todoDao.addTodos(todos)
         }
     }
+
+
     companion object {
         @Volatile private var INSTANCE: TodoRepository? = null
 

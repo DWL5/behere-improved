@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.todo_edit
 import kotlinx.android.synthetic.main.fragment_add_todo.*
 
-class AddTodoFragment: DialogFragment() {
+class AddTodoFragment : DialogFragment() {
 
     private val todoViewModel by lazy {
         ViewModelProviders.of(this).get(TodoViewModel::class.java)
@@ -36,11 +36,22 @@ class AddTodoFragment: DialogFragment() {
         //키보드 on
         todo_edit.requestFocus()
 
-        val inputMethodManager = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        inputMethodManager.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY)
+        val inputMethodManager =
+            context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.toggleSoftInput(
+            InputMethodManager.SHOW_FORCED,
+            InputMethodManager.HIDE_IMPLICIT_ONLY
+        )
 
         save_btn.setOnClickListener {
-//            todoViewModel.insert(Todo())
+            todoViewModel.insert(
+                Todo(
+                    todoTitle = "A",
+                    todoPlace = "B",
+                    todoNotiOn = true,
+                    todoCreatedTime = System.currentTimeMillis()
+                )
+            )
             dismiss()
         }
 
@@ -64,7 +75,8 @@ class AddTodoFragment: DialogFragment() {
         //키보드 off
         todo_edit.clearFocus()
 
-        val inputMethodManager = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        val inputMethodManager =
+            context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         inputMethodManager.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0)
     }
 }
