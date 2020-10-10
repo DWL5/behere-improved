@@ -28,6 +28,8 @@ class TodoRepository  private constructor(
 
     fun getPlace(): List<String> = todoDao.getPlaces()
 
+    fun getPlace(on:Boolean): List<String> = todoDao.getOnPlace(on)
+
     // Not being used now but could in future versions.
     /**
      * Updates location in database.
