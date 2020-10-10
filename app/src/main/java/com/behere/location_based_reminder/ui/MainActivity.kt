@@ -3,6 +3,7 @@ package com.behere.location_based_reminder.ui
 import android.content.pm.ActivityInfo
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -36,9 +37,9 @@ class MainActivity : AppCompatActivity() {
         todoDataList.observe(this, Observer {
             adapter.submitData(it)
         })
-        
-        add_btn.setOnClickListener {
-            val addTodoFragment = AddTodoFragment()
+
+        more_btn.setOnClickListener {
+            val moreFragment = MoreFragment()
             supportFragmentManager
                 .beginTransaction()
                 .setCustomAnimations(R.anim.slide_up, 0, 0, 0)
