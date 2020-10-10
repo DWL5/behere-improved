@@ -47,4 +47,7 @@ dependencies {
 
     // optional - Test helpers
     testImplementation "androidx.room:room-testing:$room_version"
+
+    debugImplementation 'com.amitshekhar.android:debug-db:1.0.6'
+    implementation 'com.google.android.gms:play-services-location:17.1.0'
 }
