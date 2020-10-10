@@ -15,6 +15,9 @@ interface TodoDao {
     @Query("SELECT todoPlace FROM todo ORDER BY todoCreatedTime DESC")
     fun getPlaces(): List<String>
 
+    @Query("SELECT todoPlace FROM todo ORDER BY todoCreatedTime DESC")
+    fun getPlaces(): List<String>
+
     @Update
     fun updateTodo(todo: Todo)
 
