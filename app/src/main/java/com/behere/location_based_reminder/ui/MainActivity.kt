@@ -31,7 +31,6 @@ class MainActivity : AppCompatActivity() {
         val todoDataList = todoViewModel.todoLiveData
         val todoList = todo_list
         val adapter = TodoListAdapter(this, ArrayList())
-        adapter.submitData(todoDataList.value)
         todoList.adapter = adapter
         todoList.layoutManager = LinearLayoutManager(this)
         todoDataList.observe(this, Observer {
@@ -50,7 +49,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-
         more_content.visibility = View.VISIBLE
     }
 }

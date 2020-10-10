@@ -51,6 +51,7 @@ class TodoListAdapter(private val context: Context, private val todoDataList: Ar
         if (data.isNullOrEmpty()) return
         todoDataList.clear()
         todoDataList.addAll(data)
+        notifyDataSetChanged()
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
