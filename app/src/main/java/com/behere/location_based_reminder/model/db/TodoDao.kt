@@ -12,6 +12,9 @@ interface TodoDao {
     @Query("SELECT * FROM todo WHERE todoNotiOn=(:on)")
     fun getOnTodo(on: Boolean): LiveData<Todo>
 
+    @Query("SELECT todoPlace FROM todo ORDER BY todoCreatedTime DESC")
+    fun getPlaces(): List<String>
+
     @Update
     fun updateTodo(todo: Todo)
 
