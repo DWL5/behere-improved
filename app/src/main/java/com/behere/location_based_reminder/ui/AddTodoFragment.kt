@@ -9,6 +9,7 @@ import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProviders
 import com.behere.location_based_reminder.R
+import com.behere.location_based_reminder.model.db.Todo
 import com.behere.location_based_reminder.viewmodles.TodoViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.todo_edit
@@ -39,7 +40,7 @@ class AddTodoFragment: DialogFragment() {
         inputMethodManager.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY)
 
         save_btn.setOnClickListener {
-            //todoViewModel.insert(todo)
+//            todoViewModel.insert(Todo())
             dismiss()
         }
 

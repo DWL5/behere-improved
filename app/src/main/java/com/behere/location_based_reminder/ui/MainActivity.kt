@@ -3,6 +3,7 @@ package com.behere.location_based_reminder.ui
 import android.content.pm.ActivityInfo
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.behere.location_based_reminder.R
@@ -33,13 +34,19 @@ class MainActivity : AppCompatActivity() {
             todoList.adapter = TodoListAdapter(this, it)
         }
 
-        add_btn.setOnClickListener {
-            val addTodoFragment = AddTodoFragment()
+        more_btn.setOnClickListener {
+            val moreFragment = MoreFragment()
             supportFragmentManager
                 .beginTransaction()
                 .setCustomAnimations(R.anim.slide_up, 0, 0, 0)
-                .add(android.R.id.content, addTodoFragment)
+                .add(R.id.more_content, moreFragment)
                 .commit()
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        more_content.visibility = View.VISIBLE
     }
 }
