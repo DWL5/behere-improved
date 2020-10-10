@@ -42,8 +42,14 @@ class MainActivity : AppCompatActivity() {
             supportFragmentManager
                 .beginTransaction()
                 .setCustomAnimations(R.anim.slide_up, 0, 0, 0)
-                .add(android.R.id.content, addTodoFragment)
+                .add(R.id.more_content, moreFragment)
                 .commit()
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        more_content.visibility = View.VISIBLE
     }
 }

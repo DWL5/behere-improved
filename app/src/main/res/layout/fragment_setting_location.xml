@@ -6,8 +6,7 @@
     android:layout_height="wrap_content"
     android:background="@drawable/fragment_background"
     android:overScrollMode="never"
-    android:scrollbars="none"
-    tools:context=".main.woojin.SettingLocationFragment">
+    android:scrollbars="none">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
