@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/fragment_background"
-    android:overScrollMode="never"
-    android:scrollbars="none">
+    android:layout_gravity="bottom">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -21,14 +20,14 @@
             android:fontFamily="@font/nanumsquare_ac_b"
             android:text="Ok"
             android:textColor="@color/main_blue"
-            android:textSize="13sp"
+            android:textSize="15sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/close_btn"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="23dp"
+            android:layout_height="23dp"
             android:layout_marginRight="10dp"
             android:background="@drawable/xbox"
             app:layout_constraintBottom_toBottomOf="@id/ok_btn"
@@ -97,111 +96,19 @@
             app:layout_constraintTop_toBottomOf="@id/location_edit" />
 
         <TextView
-            android:id="@+id/radius_edit_title_txt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="50dp"
-            android:fontFamily="@font/nanumsquare_ac_b"
-            android:text="Set radius"
-            android:textColor="@color/grey3"
-            android:textSize="15sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/suggested_keyword_txt" />
-
-        <EditText
-            android:id="@+id/radius_edit"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/edit_background"
-            android:fontFamily="@font/nanumsquare_ac_r"
-            android:hint="Enter a radius for place access notifications."
-            android:maxLines="1"
-            android:padding="15dp"
-            android:textColor="@color/grey4"
-            android:textColorHint="@color/grey2"
-            android:textSize="13sp"
-            app:layout_constraintEnd_toStartOf="@id/distance_unit_txt"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/radius_edit_title_txt" />
-
-        <TextView
-            android:id="@+id/distance_unit_txt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="20dp"
-            android:fontFamily="@font/nanumsquare_ac_r"
-            android:padding="15dp"
-            android:text="meter"
-            android:textColor="@color/grey4"
-            android:textSize="13sp"
-            app:layout_constraintBottom_toBottomOf="@id/radius_edit"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/radius_edit"
-            app:layout_constraintTop_toTopOf="@id/radius_edit" />
-
-        <TextView
-            android:id="@+id/repeat_cycle_edit_title_txt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="50dp"
-            android:fontFamily="@font/nanumsquare_ac_b"
-            android:text="Set notification repeat cycle"
-            android:textColor="@color/grey3"
-            android:textSize="15sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/radius_edit" />
-
-        <EditText
-            android:id="@+id/repeat_cycle_edit"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/edit_background"
-            android:fontFamily="@font/nanumsquare_ac_r"
-            android:hint="Enter the frequency of notifications when approaching a place."
-            android:maxLines="1"
-            android:padding="15dp"
-            android:textColor="@color/grey4"
-            android:textColorHint="@color/grey2"
-            android:textSize="13sp"
-            app:layout_constraintEnd_toStartOf="@id/time_unit_txt"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/repeat_cycle_edit_title_txt" />
-
-        <TextView
-            android:id="@+id/time_unit_txt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="20dp"
-            android:fontFamily="@font/nanumsquare_ac_r"
-            android:padding="15dp"
-            android:text="min"
-            android:textColor="@color/grey4"
-            android:textSize="13sp"
-            app:layout_constraintBottom_toBottomOf="@id/repeat_cycle_edit"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/repeat_cycle_edit"
-            app:layout_constraintTop_toTopOf="@id/repeat_cycle_edit" />
-
-        <TextView
             android:id="@+id/notification_onoff_title_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="50dp"
-            android:layout_marginBottom="50dp"
+            android:layout_marginBottom="30dp"
             android:fontFamily="@font/nanumsquare_ac_b"
             android:text="Notification on/off"
             android:textColor="@color/grey3"
             android:textSize="15sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/repeat_cycle_edit" />
+            app:layout_constraintTop_toBottomOf="@id/suggested_keyword_txt" />
 
         <Switch
             android:layout_width="50dp"

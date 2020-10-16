@@ -35,8 +35,8 @@
 
         <ImageView
             android:id="@+id/close_btn"
-            android:layout_width="22dp"
-            android:layout_height="22dp"
+            android:layout_width="23dp"
+            android:layout_height="23dp"
             android:layout_marginTop="30dp"
             android:background="@drawable/xbox"
             app:layout_constraintStart_toStartOf="parent"
@@ -44,8 +44,8 @@
 
         <ImageView
             android:id="@+id/filter_btn"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="23dp"
+            android:layout_height="23dp"
             android:layout_marginLeft="10dp"
             android:background="@drawable/filter"
             app:layout_constraintBottom_toBottomOf="@id/close_btn"

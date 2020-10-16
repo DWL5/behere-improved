@@ -2,10 +2,11 @@ package com.behere.location_based_reminder.ui
 
 import android.content.Intent
 import android.content.pm.ActivityInfo
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.annotation.NonNull
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -22,7 +23,6 @@ class MainActivity : AppCompatActivity() {
     private val todoViewModel by lazy {
         ViewModelProviders.of(this).get(TodoViewModel::class.java)
     }
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,19 +44,33 @@ class MainActivity : AppCompatActivity() {
             mAdapter.submitData(it)
         })
 
+        val moreFragment = MoreFragment()
         more_btn.setOnClickListener {
-            val moreFragment = MoreFragment()
-            supportFragmentManager
-                .beginTransaction()
-                .setCustomAnimations(R.anim.slide_up, 0, 0, 0)
-                .add(R.id.more_content, moreFragment)
-                .commit()
-        }
-    }
+            if(!it.isSelected){
+                supportFragmentManager
+                    .beginTransaction()
+                    .setCustomAnimations(R.anim.slide_up, 0, 0, 0)
+                    .add(R.id.more_content, moreFragment)
+                    .commit()
 
-    override fun onResume() {
-        super.onResume()
-        more_content.visibility = View.VISIBLE
+                //더보기 버튼
+                it.setBackgroundResource(R.drawable.more_click)
+                it.isSelected = true
+
+                //배경
+                content_layout.setBackgroundResource(R.color.dim)
+            }
+            else{
+                supportFragmentManager.beginTransaction().remove(moreFragment).commit()
+
+                //더보기 버튼
+                it.setBackgroundResource(R.drawable.more)
+                it.isSelected = false
+
+                //배경
+                content_layout.setBackgroundResource(R.color.main_white)
+            }
+        }
     }
 
     private var simpleItemTouchCallback: ItemTouchHelper.SimpleCallback =

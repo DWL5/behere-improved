@@ -11,7 +11,6 @@ import androidx.lifecycle.ViewModelProviders
 import com.behere.location_based_reminder.R
 import com.behere.location_based_reminder.model.db.Todo
 import com.behere.location_based_reminder.viewmodles.TodoViewModel
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.todo_edit
 import kotlinx.android.synthetic.main.fragment_add_todo.*
 
@@ -52,20 +51,23 @@ class AddTodoFragment : DialogFragment() {
                     todoCreatedTime = System.currentTimeMillis()
                 )
             )
-            dismiss()
+
+            parentFragmentManager.beginTransaction().remove(this).commit()
         }
 
         close_btn.setOnClickListener {
-            dismiss()
+            parentFragmentManager.beginTransaction().remove(this).commit()
         }
 
         filter_btn.setOnClickListener {
-            val settingLocationFragment = SettingLocationFragment()
-            fragmentManager
+            val settingPlaceFragment = SettingPlaceFragment()
+            parentFragmentManager
                 ?.beginTransaction()
                 ?.setCustomAnimations(R.anim.slide_up, 0, 0, 0)
-                ?.replace(R.id.fragment_content, settingLocationFragment)
+                ?.add(android.R.id.content, settingPlaceFragment)
                 ?.commit()
+
+            view.visibility = View.GONE
         }
     }
 

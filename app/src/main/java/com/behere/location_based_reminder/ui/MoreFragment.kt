@@ -28,26 +28,35 @@ class MoreFragment : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        //장소 알림 설정 버튼
         set_location_notification_btn.setOnClickListener {
-            val settingLocationFragment = SettingLocationFragment()
-            fragmentManager
+            val settingPlaceNotificationFragment = SettingPlaceNotificationFragment()
+            parentFragmentManager
                 ?.beginTransaction()
                 ?.setCustomAnimations(R.anim.slide_up, 0, 0, 0)
-                ?.replace(android.R.id.content, settingLocationFragment)
+                ?.add(android.R.id.content, settingPlaceNotificationFragment)
                 ?.commit()
 
             (activity as MainActivity?)!!.findViewById<View>(R.id.more_content).visibility = View.GONE
+            (activity as MainActivity?)!!.findViewById<View>(R.id.more_btn).visibility = View.GONE
+
+            parentFragmentManager.beginTransaction().remove(this).commit()
         }
 
+        //TASK 등록 버튼
         add_todo_button.setOnClickListener {
             val addTodoFragment = AddTodoFragment()
-            fragmentManager
+            parentFragmentManager
                 ?.beginTransaction()
                 ?.setCustomAnimations(R.anim.slide_up, 0, 0, 0)
-                ?.replace(android.R.id.content, addTodoFragment)
+                ?.add(android.R.id.content, addTodoFragment)
                 ?.commit()
 
             (activity as MainActivity?)!!.findViewById<View>(R.id.more_content).visibility = View.GONE
+            (activity as MainActivity?)!!.findViewById<View>(R.id.more_btn).visibility = View.GONE
+
+            parentFragmentManager.beginTransaction().remove(this).commit()
         }
     }
+
 }
