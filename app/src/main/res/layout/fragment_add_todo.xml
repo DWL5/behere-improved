@@ -26,7 +26,7 @@
             android:hint="Enter a new task"
             android:textColor="@color/grey4"
             android:textColorHint="@color/grey4"
-            android:textSize="15sp"
+            android:textSize="12sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -35,8 +35,8 @@
 
         <ImageView
             android:id="@+id/close_btn"
-            android:layout_width="23dp"
-            android:layout_height="23dp"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:layout_marginTop="30dp"
             android:background="@drawable/xbox"
             app:layout_constraintStart_toStartOf="parent"
@@ -44,8 +44,8 @@
 
         <ImageView
             android:id="@+id/filter_btn"
-            android:layout_width="23dp"
-            android:layout_height="23dp"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:layout_marginLeft="10dp"
             android:background="@drawable/filter"
             app:layout_constraintBottom_toBottomOf="@id/close_btn"
@@ -59,7 +59,7 @@
             android:fontFamily="@font/nanumsquare_ac_b"
             android:text="Save"
             android:textColor="@color/main_blue"
-            android:textSize="15sp"
+            android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 

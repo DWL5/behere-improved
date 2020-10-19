@@ -20,14 +20,14 @@
             android:fontFamily="@font/nanumsquare_ac_b"
             android:text="Ok"
             android:textColor="@color/main_blue"
-            android:textSize="15sp"
+            android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/close_btn"
-            android:layout_width="23dp"
-            android:layout_height="23dp"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:layout_marginRight="10dp"
             android:background="@drawable/xbox"
             app:layout_constraintBottom_toBottomOf="@id/ok_btn"
@@ -61,7 +61,7 @@
             android:padding="15dp"
             android:textColor="@color/grey4"
             android:textColorHint="@color/grey2"
-            android:textSize="13sp"
+            android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/location_edit_title_txt" />
@@ -76,7 +76,7 @@
             android:paddingLeft="5dp"
             android:text="This is a suggested Keyword."
             android:textColor="@color/grey4"
-            android:textSize="13sp"
+            android:textSize="12sp"
             android:visibility="visible"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/location_edit" />
@@ -90,7 +90,7 @@
             android:fontFamily="@font/nanumsquare_ac_b"
             android:text="Click"
             android:textColor="@color/main_blue"
-            android:textSize="13sp"
+            android:textSize="12sp"
             android:visibility="visible"
             app:layout_constraintStart_toEndOf="@id/suggested_keyword_txt"
             app:layout_constraintTop_toBottomOf="@id/location_edit" />
