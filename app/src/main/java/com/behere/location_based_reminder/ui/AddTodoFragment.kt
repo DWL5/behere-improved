@@ -45,7 +45,7 @@ class AddTodoFragment : DialogFragment() {
         save_btn.setOnClickListener {
             todoViewModel.insert(
                 Todo(
-                    todoTitle = "A",
+                    todoTitle = todo_edit.text.toString(),
                     todoPlace = "B",
                     todoNotiOn = true,
                     todoCreatedTime = System.currentTimeMillis()
