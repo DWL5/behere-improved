@@ -3,8 +3,12 @@ package com.behere.location_based_reminder.ui
 import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.os.Bundle
+import android.text.InputType
+import android.text.method.PasswordTransformationMethod
 import android.util.Log
 import android.view.View
+import android.widget.CheckBox
+import android.widget.EditText
 import androidx.annotation.NonNull
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -12,6 +16,13 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.afollestad.materialdialogs.DialogBehavior
+import com.afollestad.materialdialogs.LayoutMode
+import com.afollestad.materialdialogs.MaterialDialog
+import com.afollestad.materialdialogs.ModalDialog
+import com.afollestad.materialdialogs.bottomsheets.BottomSheet
+import com.afollestad.materialdialogs.customview.customView
+import com.afollestad.materialdialogs.customview.getCustomView
 import com.behere.location_based_reminder.R
 import com.behere.location_based_reminder.viewmodles.TodoViewModel
 import kotlinx.android.synthetic.main.activity_main.*
@@ -44,34 +55,39 @@ class MainActivity : AppCompatActivity() {
             mAdapter.submitData(it)
         })
 
-        val moreFragment = MoreFragment()
         more_btn.setOnClickListener {
-            if(!it.isSelected){
-                supportFragmentManager
-                    .beginTransaction()
-                    .setCustomAnimations(R.anim.slide_up, 0, 0, 0)
-                    .add(R.id.more_content, moreFragment)
-                    .commit()
-
-                //더보기 버튼
-                it.setBackgroundResource(R.drawable.more_click)
-                it.isSelected = true
-
-                //배경
-                content_layout.setBackgroundResource(R.color.dim)
-            }
-            else{
-                supportFragmentManager.beginTransaction().remove(moreFragment).commit()
-
-                //더보기 버튼
-                it.setBackgroundResource(R.drawable.more)
-                it.isSelected = false
-
-                //배경
-                content_layout.setBackgroundResource(R.color.main_white)
-            }
+            showCustomViewDialog(BottomSheet(LayoutMode.WRAP_CONTENT))
         }
     }
+
+
+    private fun showCustomViewDialog(dialogBehavior: DialogBehavior = ModalDialog) {
+        val dialog = MaterialDialog(this, dialogBehavior).show {
+            title(R.string.googleWifi)
+            customView(R.layout.layout_custom_bottom_dialog_place, scrollable = true, horizontalPadding = true)
+            positiveButton(R.string.connect) { dialog ->
+                // Pull the password out of the custom view when the positive button is pressed
+                val passwordInput: EditText = dialog.getCustomView()
+                    .findViewById(R.id.password)
+                //toast("Password: $passwordInput")
+            }
+            negativeButton(android.R.string.cancel)
+            //lifecycleOwner(this@MainActivity)
+            //debugMode(debugMode)
+        }
+
+        // Setup custom view content
+        val customView = dialog.getCustomView()
+        val passwordInput: EditText = customView.findViewById(R.id.password)
+        val showPasswordCheck: CheckBox = customView.findViewById(R.id.showPassword)
+        showPasswordCheck.setOnCheckedChangeListener { _, isChecked ->
+            passwordInput.inputType =
+                if (!isChecked) InputType.TYPE_TEXT_VARIATION_PASSWORD else InputType.TYPE_CLASS_TEXT
+            passwordInput.transformationMethod =
+                if (!isChecked) PasswordTransformationMethod.getInstance() else null
+        }
+    }
+
 
     private var simpleItemTouchCallback: ItemTouchHelper.SimpleCallback =
         object :
