@@ -8,6 +8,7 @@ import android.text.method.PasswordTransformationMethod
 import android.util.Log
 import android.view.View
 import android.widget.CheckBox
+import android.widget.CompoundButton
 import android.widget.EditText
 import androidx.annotation.NonNull
 import androidx.appcompat.app.AppCompatActivity
@@ -24,8 +25,11 @@ import com.afollestad.materialdialogs.bottomsheets.BottomSheet
 import com.afollestad.materialdialogs.customview.customView
 import com.afollestad.materialdialogs.customview.getCustomView
 import com.behere.location_based_reminder.R
+import com.behere.location_based_reminder.model.db.Todo
 import com.behere.location_based_reminder.viewmodles.TodoViewModel
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.layout_custom_bottom_dialog_place.*
+import kotlinx.android.synthetic.main.layout_custom_bottom_dialog_place.view.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -63,29 +67,43 @@ class MainActivity : AppCompatActivity() {
 
     private fun showCustomViewDialog(dialogBehavior: DialogBehavior = ModalDialog) {
         val dialog = MaterialDialog(this, dialogBehavior).show {
-            title(R.string.googleWifi)
-            customView(R.layout.layout_custom_bottom_dialog_place, scrollable = true, horizontalPadding = true)
-            positiveButton(R.string.connect) { dialog ->
-                // Pull the password out of the custom view when the positive button is pressed
-                val passwordInput: EditText = dialog.getCustomView()
-                    .findViewById(R.id.password)
-                //toast("Password: $passwordInput")
+            title(R.string.todo)
+            customView(R.layout.layout_custom_bottom_dialog_place, scrollable = false, horizontalPadding = true)
+            positiveButton(R.string.add) { dialog ->
+                todoViewModel.insert(Todo(todoTitle = edit_todo.text.toString(), todoPlace = edit_location.text.toString(),
+                    todoNotiOn = switch_notication_on.isChecked, todoCreatedTime = System.currentTimeMillis()
+                ))
+                dialog.dismiss()
             }
-            negativeButton(android.R.string.cancel)
+            negativeButton(R.string.cancel) {dialog ->
+                dialog.dismiss()
+            }
             //lifecycleOwner(this@MainActivity)
             //debugMode(debugMode)
         }
 
-        // Setup custom view content
         val customView = dialog.getCustomView()
-        val passwordInput: EditText = customView.findViewById(R.id.password)
+        val checkBox = customView.findViewById<CheckBox>(R.id.checkbox_location)
+        checkBox.setOnCheckedChangeListener { p0, p1 ->
+            if (p1) {
+                customView.edit_location.isEnabled = p1
+                customView.view_location_dim.visibility = View.INVISIBLE
+            } else {
+                customView.edit_location.isEnabled = p1
+                customView.view_location_dim.visibility = View.VISIBLE
+            }
+        }
+
+        // Setup custom view content
+
+       /* val passwordInput: EditText = customView.findViewById(R.id.password)
         val showPasswordCheck: CheckBox = customView.findViewById(R.id.showPassword)
         showPasswordCheck.setOnCheckedChangeListener { _, isChecked ->
             passwordInput.inputType =
                 if (!isChecked) InputType.TYPE_TEXT_VARIATION_PASSWORD else InputType.TYPE_CLASS_TEXT
             passwordInput.transformationMethod =
                 if (!isChecked) PasswordTransformationMethod.getInstance() else null
-        }
+        }*/
     }
 
 

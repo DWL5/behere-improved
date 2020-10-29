@@ -1,6 +1,11 @@
 <resources>
     <string name="app_name">behere-improved</string>
 
+    <string name="todo">TODO</string>
+    <string name="add">ADD</string>
+    <string name="cancel">CANCEL</string>
+
+
     <string name="agree">Agree</string>
     <string name="disagree">Disagree</string>
     <string name="more_info">More Info</string>
