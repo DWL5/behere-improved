@@ -53,8 +53,8 @@ class LocationUpdatesBroadcastReceiver : BroadcastReceiver() {
                     application.apiContainer.storeListServiceRepository
                         .getToDoStoreListNearBy(
                             radius = 100,
-                            location.latitude.toFloat(),
-                            location.latitude.toFloat(),
+                            cx = location.latitude.toFloat(),
+                            cy = location.latitude.toFloat(),
                             numOfRows = 1000,
                             success = { map ->
                                 Log.e(TAG, "Success Result $map")

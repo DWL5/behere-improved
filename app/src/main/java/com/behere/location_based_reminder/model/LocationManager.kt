@@ -8,12 +8,15 @@ import android.util.Log
 import androidx.annotation.MainThread
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.amitshekhar.utils.Utils
 import com.behere.location_based_reminder.LocationUpdatesBroadcastReceiver
 import com.behere.location_based_reminder.hasPermission
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationServices
+import okhttp3.internal.Util
 import java.util.concurrent.TimeUnit
+import kotlin.jvm.Throws
 
 private const val TAG = "LocationManager"
 
@@ -74,10 +77,11 @@ class LocationManager private constructor(private val context: Context) {
     @Throws(SecurityException::class)
     @MainThread
     fun startLocationUpdates() {
-        Log.d(TAG, "startLocationUpdates()")
+        Log.d(TAG, "startLocationUpdates()1")
 
-        if (!context.hasPermission(Manifest.permission.ACCESS_FINE_LOCATION)) return
+        if (!context.hasPermission(Manifest.permission.ACCESS_FINE_LOCATION))
 
+        Log.d(TAG, "startLocationUpdates()2")
         try {
             _receivingLocationUpdates.value = true
             // If the PendingIntent is the same as the last request (which it always is), this
