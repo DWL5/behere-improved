@@ -77,7 +77,7 @@ class LocationUpdatesBroadcastReceiver : BroadcastReceiver() {
                     val temp = queries.toTypedArray()
                     application.apiContainer.storeListServiceRepository
                         .getToDoStoreListNearBy(
-                            radius = 100,
+                            radius = AppApplication.prefs.getInt(KEY_RADIUS, 1000),
                             cx = location.longitude.toFloat(),
                             cy = location.latitude.toFloat(),
                             numOfRows = 1000,
