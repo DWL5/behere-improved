@@ -1,5 +1,7 @@
 package com.behere.location_based_reminder
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.BroadcastReceiver
 import android.content.Context
@@ -29,6 +31,7 @@ private val EVENT_SUMMARY_ID = 0
 private val EVENT_NOTIFICATION_ID = 9
 
 class LocationUpdatesBroadcastReceiver : BroadcastReceiver() {
+
     override fun onReceive(context: Context, intent: Intent) {
         Log.d(TAG, "onReceive() context:$context, intent:$intent")
         val todoRepository = TodoRepository.getInstance(
@@ -53,7 +56,7 @@ class LocationUpdatesBroadcastReceiver : BroadcastReceiver() {
                     application.apiContainer.storeListServiceRepository
                         .getToDoStoreListNearBy(
                             radius = 100,
-                            cx = location.latitude.toFloat(),
+                            cx = location.longitude.toFloat(),
                             cy = location.latitude.toFloat(),
                             numOfRows = 1000,
                             success = { map ->
@@ -61,7 +64,7 @@ class LocationUpdatesBroadcastReceiver : BroadcastReceiver() {
                                 var id = EVENT_NOTIFICATION_ID
                                 for (value in map) {
                                     Log.e(TAG, "noti : ${value.key}")
-                                    with(NotificationManagerCompat.from(context))
+                                    with(NotificationManagerCompat.from(application.applicationContext))
                                     {
                                         notify(
                                             id,

@@ -1,7 +1,10 @@
 package com.behere.location_based_reminder.ui
 
+import android.Manifest.permission.ACCESS_BACKGROUND_LOCATION
+import android.Manifest.permission.ACCESS_FINE_LOCATION
 import android.content.Intent
 import android.content.pm.ActivityInfo
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.text.InputType
 import android.text.method.PasswordTransformationMethod
@@ -30,6 +33,7 @@ import com.behere.location_based_reminder.viewmodles.TodoViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.layout_custom_bottom_dialog_place.*
 import kotlinx.android.synthetic.main.layout_custom_bottom_dialog_place.view.*
+import java.util.jar.Manifest
 
 class MainActivity : AppCompatActivity() {
 
@@ -43,8 +47,16 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         setContentView(R.layout.activity_main)
-
         initializeViews()
+
+        if (checkSelfPermission(ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(arrayOf(ACCESS_FINE_LOCATION), 0)
+        }
+
+        if (checkSelfPermission(ACCESS_BACKGROUND_LOCATION)
+            != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(arrayOf(ACCESS_BACKGROUND_LOCATION), 0)
+        }
     }
 
     private fun initializeViews() {

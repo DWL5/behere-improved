@@ -15,6 +15,7 @@ class StoreListServiceRepository(
         success: (List<Item>) -> Unit,
         fail: (String) -> Unit
     ) {
+        Log.d("API", "getAllStoreListNearBy() called.")
         storeListServiceRemoteDataSource.getStoreList(
             radius,
             cx,
@@ -35,11 +36,14 @@ class StoreListServiceRepository(
         fail: (String) -> Unit,
         vararg queries: String
     ) {
+        Log.d("API", "getToDoStoreListNearBy() called.")
         val list = ArrayList<Item>()
         getAllStoreListNearBy(radius, cx, cy, numOfRows, success = {
             val map = HashMap<String, ArrayList<Item>>()
             for (item in it) {
+                Log.d("API", "item $item")
                 for (q in queries) {
+                    Log.d("API", "query $q")
                     if (item.bizesNm.contains(q)) {
                         if (!map.containsKey(q)) {
                             map[q] = ArrayList<Item>()

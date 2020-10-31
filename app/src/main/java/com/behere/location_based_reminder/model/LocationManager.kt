@@ -77,11 +77,10 @@ class LocationManager private constructor(private val context: Context) {
     @Throws(SecurityException::class)
     @MainThread
     fun startLocationUpdates() {
-        Log.d(TAG, "startLocationUpdates()1")
 
-        if (!context.hasPermission(Manifest.permission.ACCESS_FINE_LOCATION))
 
-        Log.d(TAG, "startLocationUpdates()2")
+        if (!context.hasPermission(Manifest.permission.ACCESS_FINE_LOCATION)) return
+
         try {
             _receivingLocationUpdates.value = true
             // If the PendingIntent is the same as the last request (which it always is), this
