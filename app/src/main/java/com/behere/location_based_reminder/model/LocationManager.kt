@@ -77,8 +77,7 @@ class LocationManager private constructor(private val context: Context) {
     @Throws(SecurityException::class)
     @MainThread
     fun startLocationUpdates() {
-
-
+        Log.d(TAG, "startLocationUpdates()")
         if (!context.hasPermission(Manifest.permission.ACCESS_FINE_LOCATION)) return
 
         try {

@@ -7,6 +7,7 @@ import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
 
+val ANDROID_CHANNEL_ID = "com.behere.loc_based_reminder.NOTI_CHANNEL"
 /**
  * Helper functions to simplify permission checks/requests.
  */
