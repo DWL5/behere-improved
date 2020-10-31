@@ -5,14 +5,17 @@ import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
+import android.content.Intent
 import android.os.Build
+import android.util.Log
 import androidx.core.app.NotificationCompat
+import com.behere.location_based_reminder.ANDROID_CHANNEL_ID
+import com.behere.location_based_reminder.LocationUpdatingService
 import com.behere.location_based_reminder.model.LocationManager
 import com.google.android.gms.location.R
 
 class AppApplication : Application() {
     lateinit var apiContainer: ApiContainer
-    private val ANDROID_CHANNEL_ID = "my.kotlin.application.test200812"
     private var notificationManager: NotificationManager? = null
 
     private enum class NotificationMode {
@@ -24,11 +27,33 @@ class AppApplication : Application() {
         apiContainer = ApiContainer(this)
         notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         //http://apis.data.go.kr/B553077/api/open/sdsc/storeListInRadius?radius=100&cx=126.935539&cy=37.555512&ServiceKey=oHRM3LmzGC5b3wvDiHHv71TdYCcs50DkzlRlvBah21L5rtIjzDeNugOGm5mSvmOIlxdKerwEn2x8iA1M45hpeQ%3D%3D&numOfRows=100&pageNo=4&type=jso
-        LocationManager.getInstance(applicationContext).startLocationUpdates()
         createNotificationChannel()
+        applicationContext.let {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                //오레오 이상은 백그라운드로 실행하면 강제 종료 위험 있음 -> 포그라운드 실행해야
+                it?.startForegroundService(
+                    Intent(
+                        applicationContext?.applicationContext,
+                        LocationUpdatingService::class.java
+                    )
+                )
+                Log.e("우진", "API 레벨 26 이상")
+            } else {
+                //백그라운드 실행에 제약 없음
+                it?.startService(
+                    Intent(
+                        applicationContext?.applicationContext,
+                        LocationUpdatingService::class.java
+                    )
+                )
+                Log.e("우진", "API 레벨 25 이하")
+//                    }
+            }
+        }
     }
 
     private fun createNotificationChannel() {
+        Log.d("NOTI", "createNotificationChannel() called")
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channel = NotificationChannel(
                 ANDROID_CHANNEL_ID,

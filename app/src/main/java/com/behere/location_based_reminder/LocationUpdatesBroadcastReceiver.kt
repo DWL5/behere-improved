@@ -25,7 +25,7 @@ private const val TAG = "LUBroadcastReceiver"
 const val FIND_ACTION = "com.behere.loc_based_reminder.FIND_ACTION"
 const val NOTI_GROUP = "com.behere.loc_based_reminder.NOTI_GROUP"
 
-private val ANDROID_CHANNEL_ID = "my.kotlin.application.test200812"
+
 private val STICK_NOTIFICATION_ID = 1
 private val EVENT_SUMMARY_ID = 0
 private val EVENT_NOTIFICATION_ID = 9
@@ -40,7 +40,30 @@ class LocationUpdatesBroadcastReceiver : BroadcastReceiver() {
         )
         
         if (intent.action == Intent.ACTION_BOOT_COMPLETED) {
-            LocationManager.getInstance(context).startLocationUpdates()
+            Log.e("우진", "Boot Complete 브로드캐스트 실행")
+
+            context.let {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    //오레오 이상은 백그라운드로 실행하면 강제 종료 위험 있음 -> 포그라운드 실행해야
+                    it?.startForegroundService(
+                        Intent(
+                            context?.applicationContext,
+                            LocationUpdatingService::class.java
+                        )
+                    )
+                    Log.e("우진", "API 레벨 26 이상")
+                } else {
+                    //백그라운드 실행에 제약 없음
+                    it?.startService(
+                        Intent(
+                            context?.applicationContext,
+                            LocationUpdatingService::class.java
+                        )
+                    )
+                    Log.e("우진", "API 레벨 25 이하")
+//                    }
+                }
+            }
         } else if (intent.action == ACTION_PROCESS_UPDATES) {
             LocationResult.extractResult(intent)?.let { locationResult ->
                 for (location in locationResult!!.locations) {
@@ -113,6 +136,7 @@ class LocationUpdatesBroadcastReceiver : BroadcastReceiver() {
         items: ArrayList<Item>,
         id: Int
     ): NotificationCompat.Builder {
+        Log.d("NOTI", "setEventNotification() called")
         //알림 클릭 시, 앱 진입
         val intent = Intent(context, MapActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
