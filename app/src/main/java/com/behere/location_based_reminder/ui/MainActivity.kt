@@ -1,10 +1,18 @@
 package com.behere.location_based_reminder.ui
 
+import android.Manifest.permission.ACCESS_BACKGROUND_LOCATION
+import android.Manifest.permission.ACCESS_FINE_LOCATION
 import android.content.Intent
 import android.content.pm.ActivityInfo
+import android.content.pm.PackageManager
 import android.os.Bundle
+import android.text.InputType
+import android.text.method.PasswordTransformationMethod
 import android.util.Log
 import android.view.View
+import android.widget.CheckBox
+import android.widget.CompoundButton
+import android.widget.EditText
 import androidx.annotation.NonNull
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -12,9 +20,20 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.afollestad.materialdialogs.DialogBehavior
+import com.afollestad.materialdialogs.LayoutMode
+import com.afollestad.materialdialogs.MaterialDialog
+import com.afollestad.materialdialogs.ModalDialog
+import com.afollestad.materialdialogs.bottomsheets.BottomSheet
+import com.afollestad.materialdialogs.customview.customView
+import com.afollestad.materialdialogs.customview.getCustomView
 import com.behere.location_based_reminder.R
+import com.behere.location_based_reminder.model.db.Todo
 import com.behere.location_based_reminder.viewmodles.TodoViewModel
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.layout_custom_bottom_dialog_place.*
+import kotlinx.android.synthetic.main.layout_custom_bottom_dialog_place.view.*
+import java.util.jar.Manifest
 
 class MainActivity : AppCompatActivity() {
 
@@ -28,8 +47,16 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         setContentView(R.layout.activity_main)
-
         initializeViews()
+
+        if (checkSelfPermission(ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(arrayOf(ACCESS_FINE_LOCATION), 0)
+        }
+
+        if (checkSelfPermission(ACCESS_BACKGROUND_LOCATION)
+            != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(arrayOf(ACCESS_BACKGROUND_LOCATION), 0)
+        }
     }
 
     private fun initializeViews() {
@@ -44,34 +71,53 @@ class MainActivity : AppCompatActivity() {
             mAdapter.submitData(it)
         })
 
-        val moreFragment = MoreFragment()
         more_btn.setOnClickListener {
-            if(!it.isSelected){
-                supportFragmentManager
-                    .beginTransaction()
-                    .setCustomAnimations(R.anim.slide_up, 0, 0, 0)
-                    .add(R.id.more_content, moreFragment)
-                    .commit()
-
-                //더보기 버튼
-                it.setBackgroundResource(R.drawable.more_click)
-                it.isSelected = true
-
-                //배경
-                content_layout.setBackgroundResource(R.color.dim)
-            }
-            else{
-                supportFragmentManager.beginTransaction().remove(moreFragment).commit()
-
-                //더보기 버튼
-                it.setBackgroundResource(R.drawable.more)
-                it.isSelected = false
-
-                //배경
-                content_layout.setBackgroundResource(R.color.main_white)
-            }
+            showCustomViewDialog(BottomSheet(LayoutMode.WRAP_CONTENT))
         }
     }
+
+
+    private fun showCustomViewDialog(dialogBehavior: DialogBehavior = ModalDialog) {
+        val dialog = MaterialDialog(this, dialogBehavior).show {
+            title(R.string.todo)
+            customView(R.layout.layout_custom_bottom_dialog_place, scrollable = false, horizontalPadding = true)
+            positiveButton(R.string.add) { dialog ->
+                todoViewModel.insert(Todo(todoTitle = edit_todo.text.toString(), todoPlace = edit_location.text.toString(),
+                    todoNotiOn = switch_notication_on.isChecked, todoCreatedTime = System.currentTimeMillis()
+                ))
+                dialog.dismiss()
+            }
+            negativeButton(R.string.cancel) {dialog ->
+                dialog.dismiss()
+            }
+            //lifecycleOwner(this@MainActivity)
+            //debugMode(debugMode)
+        }
+
+        val customView = dialog.getCustomView()
+        val checkBox = customView.findViewById<CheckBox>(R.id.checkbox_location)
+        checkBox.setOnCheckedChangeListener { p0, p1 ->
+            if (p1) {
+                customView.edit_location.isEnabled = p1
+                customView.view_location_dim.visibility = View.INVISIBLE
+            } else {
+                customView.edit_location.isEnabled = p1
+                customView.view_location_dim.visibility = View.VISIBLE
+            }
+        }
+
+        // Setup custom view content
+
+       /* val passwordInput: EditText = customView.findViewById(R.id.password)
+        val showPasswordCheck: CheckBox = customView.findViewById(R.id.showPassword)
+        showPasswordCheck.setOnCheckedChangeListener { _, isChecked ->
+            passwordInput.inputType =
+                if (!isChecked) InputType.TYPE_TEXT_VARIATION_PASSWORD else InputType.TYPE_CLASS_TEXT
+            passwordInput.transformationMethod =
+                if (!isChecked) PasswordTransformationMethod.getInstance() else null
+        }*/
+    }
+
 
     private var simpleItemTouchCallback: ItemTouchHelper.SimpleCallback =
         object :

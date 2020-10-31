@@ -25,11 +25,11 @@ class TodoListAdapter(private val context: Context, private val todoDataList: Ar
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.todoTitle.text = todoDataList[position].todoTitle
-
         if (todoDataList[position].todoPlace.isNullOrEmpty()) {
             holder.todoPlace.visibility = View.GONE
         } else {
             holder.todoPlace.visibility = View.VISIBLE
+            holder.todoPlaceText.text = todoDataList[position].todoPlace
         }
 
         holder.checkBox.setOnClickListener {
@@ -61,6 +61,7 @@ class TodoListAdapter(private val context: Context, private val todoDataList: Ar
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val todoTitle: TextView = itemView.todo_title_txt
         val todoPlace:ImageView =  itemView.location_img
+        val todoPlaceText:TextView = itemView.todo_location_txt
         val checkBox: CheckBox = itemView.check_box
     }
 }

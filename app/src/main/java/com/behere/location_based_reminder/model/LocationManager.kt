@@ -8,12 +8,15 @@ import android.util.Log
 import androidx.annotation.MainThread
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.amitshekhar.utils.Utils
 import com.behere.location_based_reminder.LocationUpdatesBroadcastReceiver
 import com.behere.location_based_reminder.hasPermission
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationServices
+import okhttp3.internal.Util
 import java.util.concurrent.TimeUnit
+import kotlin.jvm.Throws
 
 private const val TAG = "LocationManager"
 
@@ -74,7 +77,7 @@ class LocationManager private constructor(private val context: Context) {
     @Throws(SecurityException::class)
     @MainThread
     fun startLocationUpdates() {
-        Log.d(TAG, "startLocationUpdates()")
+
 
         if (!context.hasPermission(Manifest.permission.ACCESS_FINE_LOCATION)) return
 

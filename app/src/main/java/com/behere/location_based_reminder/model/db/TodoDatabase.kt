@@ -16,7 +16,8 @@ abstract class TodoDatabase : RoomDatabase() {
 
     companion object {
         // For Singleton instantiation
-        @Volatile private var INSTANCE: TodoDatabase? = null
+        @Volatile
+        private var INSTANCE: TodoDatabase? = null
 
         fun getInstance(context: Context): TodoDatabase {
             return INSTANCE ?: synchronized(this) {
@@ -29,7 +30,8 @@ abstract class TodoDatabase : RoomDatabase() {
                 context,
                 TodoDatabase::class.java,
                 DATABASE_NAME
-            ).build()
+            ).allowMainThreadQueries()
+                .build()
         }
     }
 }

@@ -1,3 +1,106 @@
 <resources>
     <string name="app_name">behere-improved</string>
+
+    <string name="todo">TODO</string>
+    <string name="add">ADD</string>
+    <string name="cancel">CANCEL</string>
+
+
+    <string name="agree">Agree</string>
+    <string name="disagree">Disagree</string>
+    <string name="more_info">More Info</string>
+
+    <string name="choose">Choose</string>
+
+    <string name="shareLocationPrompt">This app wants to access your location.</string>
+    <string name="useGoogleLocationServices">Use Google\'s Location Services?</string>
+    <string name="useGoogleLocationServicesPrompt">Let Google help apps determine location. This means sending anonymous location data to Google, even when no apps are running.</string>
+    <string name="htmlContent"><![CDATA[
+    <b>Material Dialogs</b> is a library designed and developed by
+    <a href="https://aidanfollestad.com">Aidan Follestad</a>. As of 2018, Aidan currently works
+    on the <u>Square Device Experience</u> team at <a href="https://github.com/square">Square</a>.<br/><br/>
+    <i><font color="#0099CC">Thanks for using Material Dialogs!</font></i>
+  ]]></string>
+    <string name="socialNetworks">Social Networks</string>
+    <string name="states">States</string>
+    <string name="loremIpsum">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur vitae metus nec sapien
+    elementum interdum ac mollis tortor. Nunc porttitor metus placerat orci auctor, sed dictum
+    magna dapibus. Morbi a lacus ante. Cum sociis natoque penatibus et magnis dis parturient montes,
+    nascetur ridiculus mus. Proin posuere nisl imperdiet lectus elementum accumsan. Etiam lacinia
+    nisi ut nulla fermentum tempus. Integer ornare lacinia diam non maximus. Vestibulum iaculis urna
+    eu elementum scelerisque. Etiam nisl erat, bibendum vitae magna nec, convallis malesuada erat.
+    Cras non porttitor nibh. Pellentesque rhoncus sem luctus felis tincidunt bibendum. Pellentesque
+    vulputate eros at nulla sollicitudin volutpat. Pellentesque laoreet est sit amet erat laoreet,
+    id molestie nulla efficitur. Interdum et malesuada fames ac ante ipsum primis in faucibus. Sed
+    varius nisl at imperdiet facilisis. Nam in elit sit amet metus dignissim aliquam. Nulla et ante
+    molestie, lobortis velit accumsan, ornare massa. Praesent scelerisque quam ipsum, et feugiat
+    ante aliquet eget. Aenean ultricies vulputate sem.
+  </string>
+    <string name="checkboxConfirm">I understand what this means</string>
+
+    <!-- Custom view example -->
+    <string name="signalStrength">Signal strength</string>
+    <string name="excellent">Excellent</string>
+    <string name="security">Security</string>
+    <string name="securityType">802.1x EAP</string>
+    <string name="password">Password</string>
+    <string name="ssid">SSID</string>
+    <string name="ssidLit">Material Dialogs</string>
+    <string name="showPassword">Show password</string>
+    <string name="googleWifi">Google Wifi</string>
+    <string name="connect">Connect</string>
+
+    <!-- Color Chooser Examples -->
+    <string name="primary_colors">Primary Colors</string>
+    <string name="accent_colors">Accent Colors</string>
+    <string name="custom_colors">Custom Colors</string>
+    <string name="custom_colors_rgb">Custom RGB</string>
+    <string name="custom_colors_argb">Custom ARGB</string>
+
+    <!-- File and Folder Chooser Examples -->
+    <string name="select">Select</string>
+
+    <string name="fine_location_permission_rationale">The fine location permission is needed for core functionality.</string>
+    <string name="fine_permission_denied_explanation">Fine location permission was denied, but is needed for core functionality.</string>
+
+    <string name="background_location_permission_rationale">The background location permission is needed for enhanced functionality.</string>
+    <string name="background_permission_denied_explanation">Background location permission was denied but needed for enhanced functionality.</string>
+
+
+    <string name="settings">Settings</string>
+    <string name="ok">OK</string>
+
+    <string name="fine_location_access_rationale_title_text">Welcome to the Background Location Sample!</string>
+
+    <string name="fine_location_access_rationale_details_text">This sample allows you to receive location updates while using the app.
+        \n\n
+        In order for this feature to work, please approve access to your location via the button below.
+    </string>
+
+    <string name="background_location_access_rationale_title_text">Improve location accuracy!</string>
+
+    <string name="background_location_access_rationale_details_text">
+        Dev Tip: Unless you have a valid use case for background location updates, you should instead only request updates while your app is in the foreground (app/foreground service).
+        \n\n
+        For this app, you would explain why the particular use case requires background location updates and direct user to click \"Allow all the time\" below.
+        \n\n
+    </string>
+
+
+    <string name="enable_fine_location_button_text">Approve Location Access</string>
+    <string name="enable_background_location_button_text">Approve Background Location Access</string>
+
+    <string name="start_receiving_location">Start Receiving Location Updates</string>
+    <string name="stop_receiving_location">Stop Receiving Location Updates</string>
+
+    <string name="enhance_with_background_location_button_text">Enhance with Background Location</string>
+
+    <!-- NEW ones -->
+    <string name="request_updates">Request updates</string>
+    <string name="remove_updates">Remove updates</string>
+    <string name="unknown_location">Unknown location</string>
+
+    <string name="batched_location_updates">Batched location updates</string>
+    <string name="emptyLocationDatabaseMessage">To start receiving location updates, please click the button below!</string>
 </resources>
