@@ -16,6 +16,16 @@ import kotlinx.android.synthetic.main.adapter_todo_list.view.*
 class TodoListAdapter(private val context: Context, private val todoDataList: ArrayList<Todo>) :
     RecyclerView.Adapter<TodoListAdapter.ViewHolder>() {
 
+    var itemSelectedListener: ItemSelectedListener? = null
+
+    interface ItemSelectedListener{
+        fun onSelectedListener(todo: Todo)
+    }
+
+    fun setOnItemSelectedListener(itemSelectedListener: ItemSelectedListener){
+        this.itemSelectedListener = itemSelectedListener
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layoutInflater =
             context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
@@ -24,6 +34,11 @@ class TodoListAdapter(private val context: Context, private val todoDataList: Ar
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+
+        holder.todoView.setOnClickListener{
+            itemSelectedListener?.onSelectedListener(todoDataList[position])
+        }
+
         holder.todoTitle.text = todoDataList[position].todoTitle
         if (todoDataList[position].todoPlace.isNullOrEmpty()) {
             holder.todoPlace.visibility = View.GONE
@@ -59,6 +74,7 @@ class TodoListAdapter(private val context: Context, private val todoDataList: Ar
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val todoView: View = itemView.item_layout
         val todoTitle: TextView = itemView.todo_title_txt
         val todoPlace:ImageView =  itemView.location_img
         val todoPlaceText:TextView = itemView.todo_location_txt

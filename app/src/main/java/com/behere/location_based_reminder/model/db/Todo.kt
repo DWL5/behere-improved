@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class Todo(
-    @PrimaryKey(autoGenerate = true) var id: Int = 0,
+    @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "todoId") var id: Int = 0,
     @ColumnInfo(name = "todoTitle") var todoTitle: String,
     @ColumnInfo(name = "todoPlace") var todoPlace: String?,
     @ColumnInfo(name = "todoNotiOn") var todoNotiOn: Boolean?,

@@ -19,6 +19,8 @@ class TodoRepository  private constructor(
      */
     fun getAllTodo(): LiveData<List<Todo>> = todoDao.getAllTodo()
 
+    fun getCurrentTodo(id: Int): Todo = todoDao.getCurrentTodo(id)
+
     // Not being used now but could in future versions.
     /**
      * Returns specific location in database.

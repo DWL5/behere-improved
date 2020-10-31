@@ -14,7 +14,10 @@ class TodoViewModel(application: Application) : AndroidViewModel(application) {
     )
 
     val todoLiveData = todoRepository.getAllTodo()
-    val todoOnLiveData = todoRepository.getOnTodo(true)
+
+    fun getTodo(id:Int): Todo {
+        return this.todoRepository.getCurrentTodo(id)
+    }
 
     fun insert(todo: Todo) {
         this.todoRepository.addTodo(todo)

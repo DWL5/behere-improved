@@ -10,7 +10,7 @@ private const val DATABASE_NAME = "my-location-database"
 /**
  * Database for storing all location data.
  */
-@Database(entities = [Todo::class], version = 2)
+@Database(entities = [Todo::class], version = 3)
 abstract class TodoDatabase : RoomDatabase() {
     abstract fun locationDao(): TodoDao
 
@@ -30,7 +30,7 @@ abstract class TodoDatabase : RoomDatabase() {
                 context,
                 TodoDatabase::class.java,
                 DATABASE_NAME
-            ).allowMainThreadQueries()
+            ).allowMainThreadQueries().fallbackToDestructiveMigration()
                 .build()
         }
     }

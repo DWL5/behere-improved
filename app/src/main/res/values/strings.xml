@@ -1,8 +1,9 @@
 <resources>
     <string name="app_name">behere-improved</string>
 
-    <string name="todo">TODO</string>
+    <string name="todo">TO DO</string>
     <string name="add">ADD</string>
+    <string name="edit">EDIT</string>
     <string name="cancel">CANCEL</string>
 
 

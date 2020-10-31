@@ -9,6 +9,9 @@ interface TodoDao {
     @Query("SELECT * FROM todo ORDER BY todoCreatedTime DESC")
     fun getAllTodo(): LiveData<List<Todo>>
 
+    @Query("SELECT * FROM todo WHERE todoId=(:id)")
+    fun getCurrentTodo(id: Int): Todo
+
     @Query("SELECT * FROM todo WHERE todoNotiOn=(:on)")
     fun getOnTodo(on: Boolean): LiveData<List<Todo>>
 
