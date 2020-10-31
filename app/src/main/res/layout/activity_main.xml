@@ -31,7 +31,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/todo_edit" />
 
-    <ImageView
+    <ImageButton
         android:id="@+id/more_btn"
         android:layout_width="65dp"
         android:layout_height="65dp"

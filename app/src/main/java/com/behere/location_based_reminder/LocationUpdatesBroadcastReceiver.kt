@@ -51,7 +51,6 @@ class LocationUpdatesBroadcastReceiver : BroadcastReceiver() {
                             LocationUpdatingService::class.java
                         )
                     )
-                    Log.e("우진", "API 레벨 26 이상")
                 } else {
                     //백그라운드 실행에 제약 없음
                     it?.startService(

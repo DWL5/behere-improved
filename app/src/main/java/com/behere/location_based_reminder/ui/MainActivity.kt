@@ -32,6 +32,8 @@ import com.behere.location_based_reminder.R
 import com.behere.location_based_reminder.model.db.Todo
 import com.behere.location_based_reminder.viewmodles.TodoViewModel
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_todo_info.*
+import kotlinx.android.synthetic.main.adapter_todo_list.*
 import kotlinx.android.synthetic.main.layout_custom_bottom_dialog_place.*
 import kotlinx.android.synthetic.main.layout_custom_bottom_dialog_place.view.*
 import java.util.jar.Manifest
@@ -39,6 +41,7 @@ import java.util.jar.Manifest
 class MainActivity : AppCompatActivity() {
 
     lateinit var mAdapter: TodoListAdapter
+    lateinit var moreFragment:MoreFragment
 
     private val todoViewModel by lazy {
         ViewModelProviders.of(this).get(TodoViewModel::class.java)
@@ -70,8 +73,6 @@ class MainActivity : AppCompatActivity() {
         mAdapter.setOnItemSelectedListener(object : TodoListAdapter.ItemSelectedListener {
             override fun onSelectedListener(todo: Todo) {
                 showCustomViewDialogEditMode(BottomSheet(LayoutMode.WRAP_CONTENT), todo)
-
-                Log.e("우진", todo.toString())
                 mAdapter.notifyDataSetChanged()
             }
         })
@@ -82,9 +83,24 @@ class MainActivity : AppCompatActivity() {
             mAdapter.submitData(it)
         })
 
+        moreFragment = MoreFragment()
         more_btn.setOnClickListener {
-            showCustomViewDialog(BottomSheet(LayoutMode.WRAP_CONTENT))
+            if(!it.isSelected){
+//                it.setBackgroundResource(R.drawable.more_click)
+                supportFragmentManager.beginTransaction().add(R.id.more_content, moreFragment).commit()
+                it.isSelected = true
+            }
+            else{
+//                it.setBackgroundResource(R.drawable.more)
+                removeFragment()
+                it.isSelected = false
+            }
+//            showCustomViewDialog(BottomSheet(LayoutMode.WRAP_CONTENT))
         }
+    }
+
+    fun removeFragment(){
+        supportFragmentManager.beginTransaction().remove(moreFragment).commit()
     }
 
 
@@ -93,7 +109,7 @@ class MainActivity : AppCompatActivity() {
             title(R.string.todo)
             customView(
                 R.layout.layout_custom_bottom_dialog_place,
-                scrollable = true,
+                scrollable = false,
                 horizontalPadding = true
             )
             positiveButton(R.string.add) { dialog ->
@@ -151,18 +167,21 @@ class MainActivity : AppCompatActivity() {
             title(R.string.todo)
             customView(
                 R.layout.layout_custom_bottom_dialog_place,
-                scrollable = true,
+                scrollable = false,
                 horizontalPadding = true
             )
             positiveButton(R.string.edit) { dialog ->
-                todoViewModel.update(
-                    Todo(
-                        todoTitle = edit_todo.text.toString(),
-                        todoPlace = edit_location.text.toString(),
-                        todoNotiOn = switch_notication_on.isChecked,
-                        todoCreatedTime = System.currentTimeMillis()
-                    )
-                )
+                todo.todoTitle = edit_todo.text.toString()
+                if (checkbox_location.isChecked) {
+                    Log.e("우진", "IS CHECKED")
+                    todo.todoPlace = edit_location.text.toString()
+                    todo.todoNotiOn = switch_notication_on.isChecked
+                } else {
+                    todo.todoPlace = ""
+                    todo.todoNotiOn = false
+                }
+
+                todoViewModel.update(todo)
 
                 todoViewModel.todoLiveData
                 dialog.dismiss()
@@ -180,49 +199,33 @@ class MainActivity : AppCompatActivity() {
         val checkBox = customView.findViewById<CheckBox>(R.id.checkbox_location)
         checkBox.setOnCheckedChangeListener { p0, p1 ->
             if (p1) {
-//                customView.edit_location.isEnabled = p1
-//                customView.view_location_dim.visibility = View.INVISIBLE
                 customView.layout_location.visibility = View.VISIBLE
             } else {
-//                customView.edit_location.isEnabled = p1
-//                customView.view_location_dim.visibility = View.VISIBLE
                 customView.layout_location.visibility = View.GONE
             }
         }
 
-        // Setup custom view content
-
-        /* val passwordInput: EditText = customView.findViewById(R.id.password)
-         val showPasswordCheck: CheckBox = customView.findViewById(R.id.showPassword)
-         showPasswordCheck.setOnCheckedChangeListener { _, isChecked ->
-             passwordInput.inputType =
-                 if (!isChecked) InputType.TYPE_TEXT_VARIATION_PASSWORD else InputType.TYPE_CLASS_TEXT
-             passwordInput.transformationMethod =
-                 if (!isChecked) PasswordTransformationMethod.getInstance() else null
-         }*/
-
-        customView.edit_todo.setText(todo.todoTitle)
         if (todo.todoPlace?.isEmpty()!!) {
-        }
-        else{
+            customView.layout_location.visibility = View.GONE
+        } else {
+            customView.layout_location.visibility = View.VISIBLE
+
             customView.checkbox_location.isChecked = true
-        }
 
-        customView.edit_location.setText(todo.todoPlace)
-        customView.switch_notication_on.isChecked = todo.todoNotiOn!!
-
-        Log.e("우진", "${todoViewModel.getTodo(todo.id)}")
-    }
-
-    private fun setViewWithData(todo: Todo) {
-        edit_todo.setText(todo.todoTitle)
-        val isLocationEmpty = todo.todoPlace?.length ?: -1
-        if (isLocationEmpty != -1) {
-            checkbox_location.isChecked = true
-            edit_location.setText(todo.todoPlace)
-            switch_notication_on.isChecked = todo.todoNotiOn!!
+            customView.edit_location.setText(todo.todoPlace)
+            customView.switch_notication_on.isChecked = todo.todoNotiOn!!
         }
     }
+
+//    private fun setViewWithData(todo: Todo) {
+//        edit_todo.setText(todo.todoTitle)
+//        val isLocationEmpty = todo.todoPlace?.length ?: -1
+//        if (isLocationEmpty != -1) {
+//            checkbox_location.isChecked = true
+//            edit_location.setText(todo.todoPlace)
+//            switch_notication_on.isChecked = todo.todoNotiOn!!
+//        }
+//    }
 
     private var simpleItemTouchCallback: ItemTouchHelper.SimpleCallback =
         object :
