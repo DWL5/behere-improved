@@ -13,7 +13,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginTop="10dp"
         android:fontFamily="@font/nanumsquare_ac_b"
-        android:text="Set Todo"
+        android:text="Set To do"
         android:textColor="@color/grey3"
         android:textSize="15sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -61,6 +61,7 @@
             android:id="@+id/checkbox_location"
             android:layout_width="50dp"
             android:layout_height="20dp"
+            android:checked="true"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true" />
 

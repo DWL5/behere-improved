@@ -95,12 +95,13 @@ class MoreFragment : DialogFragment() {
                     )
 
                     todoViewModel.todoLiveData
+
                     dialog.dismiss()
+                    (activity as MainActivity).removeFragment()
                 }
 
                 negativeButton(R.string.cancel) { dialog ->
                     dialog.dismiss()
-
                     (activity as MainActivity).removeFragment()
                 }
             }
