@@ -9,7 +9,6 @@ import android.util.Log
 import androidx.annotation.MainThread
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.amitshekhar.utils.Utils
 import com.behere.location_based_reminder.KEY_FREQUENCY
 import com.behere.location_based_reminder.LocationUpdatesBroadcastReceiver
 import com.behere.location_based_reminder.di.AppApplication
@@ -47,15 +46,16 @@ class LocationManager private constructor(private val context: Context) {
         // receive updates less frequently than this interval when the app is no longer in the
         // foreground.
         val min = AppApplication.prefs.getInt(KEY_FREQUENCY, 3).toLong()
-        interval = TimeUnit.MINUTES.toMillis((min * 1.5).toLong())
+        Log.d("MIN", "minutes $min")
+        interval = TimeUnit.MINUTES.toMillis((min * 0.8).toLong())
 
         // Sets the fastest rate for active location updates. This interval is exact, and your
         // application will never receive updates faster than this value.
-        fastestInterval = TimeUnit.MINUTES.toMillis(min)
+        fastestInterval = TimeUnit.MINUTES.toMillis((min * 0.5).toLong())
 
         // Sets the maximum time when batched location updates are delivered. Updates may be
         // delivered sooner than this interval.
-        maxWaitTime = TimeUnit.MINUTES.toMillis(min * 2)
+        maxWaitTime = TimeUnit.MINUTES.toMillis(min)
 
         priority = LocationRequest.PRIORITY_HIGH_ACCURACY
     }

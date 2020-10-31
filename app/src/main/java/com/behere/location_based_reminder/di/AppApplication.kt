@@ -37,6 +37,13 @@ class AppApplication : Application() {
     }
 
     public fun startService() {
+        applicationContext.stopService(
+            Intent(
+                applicationContext,
+                LocationUpdatingService::class.java
+            )
+        )
+
         applicationContext.let {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 //오레오 이상은 백그라운드로 실행하면 강제 종료 위험 있음 -> 포그라운드 실행해야
