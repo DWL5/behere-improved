@@ -11,12 +11,16 @@ import android.util.Log
 import androidx.core.app.NotificationCompat
 import com.behere.location_based_reminder.ANDROID_CHANNEL_ID
 import com.behere.location_based_reminder.LocationUpdatingService
+import com.behere.location_based_reminder.PreferenceUtil
 import com.behere.location_based_reminder.model.LocationManager
 import com.google.android.gms.location.R
 
 class AppApplication : Application() {
     lateinit var apiContainer: ApiContainer
     private var notificationManager: NotificationManager? = null
+
+    companion object { lateinit var prefs: PreferenceUtil }
+
 
     private enum class NotificationMode {
         normal, issue
@@ -27,7 +31,12 @@ class AppApplication : Application() {
         apiContainer = ApiContainer(this)
         notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         //http://apis.data.go.kr/B553077/api/open/sdsc/storeListInRadius?radius=100&cx=126.935539&cy=37.555512&ServiceKey=oHRM3LmzGC5b3wvDiHHv71TdYCcs50DkzlRlvBah21L5rtIjzDeNugOGm5mSvmOIlxdKerwEn2x8iA1M45hpeQ%3D%3D&numOfRows=100&pageNo=4&type=jso
+        prefs = PreferenceUtil(applicationContext)
         createNotificationChannel()
+        startService()
+    }
+
+    public fun startService() {
         applicationContext.let {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 //오레오 이상은 백그라운드로 실행하면 강제 종료 위험 있음 -> 포그라운드 실행해야

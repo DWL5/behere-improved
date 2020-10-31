@@ -1,6 +1,7 @@
 package com.behere.location_based_reminder.model
 
 import android.Manifest
+import android.app.Application
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
@@ -9,7 +10,9 @@ import androidx.annotation.MainThread
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.amitshekhar.utils.Utils
+import com.behere.location_based_reminder.KEY_FREQUENCY
 import com.behere.location_based_reminder.LocationUpdatesBroadcastReceiver
+import com.behere.location_based_reminder.di.AppApplication
 import com.behere.location_based_reminder.hasPermission
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationRequest
@@ -43,15 +46,16 @@ class LocationManager private constructor(private val context: Context) {
         // IMPORTANT NOTE: Apps running on "O" devices (regardless of targetSdkVersion) may
         // receive updates less frequently than this interval when the app is no longer in the
         // foreground.
-        interval = TimeUnit.SECONDS.toMillis(60)
+        val min = AppApplication.prefs.getInt(KEY_FREQUENCY, 3).toLong()
+        interval = TimeUnit.MINUTES.toMillis((min * 1.5).toLong())
 
         // Sets the fastest rate for active location updates. This interval is exact, and your
         // application will never receive updates faster than this value.
-        fastestInterval = TimeUnit.SECONDS.toMillis(30)
+        fastestInterval = TimeUnit.MINUTES.toMillis(min)
 
         // Sets the maximum time when batched location updates are delivered. Updates may be
         // delivered sooner than this interval.
-        maxWaitTime = TimeUnit.MINUTES.toMillis(2)
+        maxWaitTime = TimeUnit.MINUTES.toMillis(min * 2)
 
         priority = LocationRequest.PRIORITY_HIGH_ACCURACY
     }
